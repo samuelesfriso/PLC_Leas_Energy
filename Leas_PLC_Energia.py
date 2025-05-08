@@ -3,11 +3,9 @@ import csv
 from datetime import datetime
 
 # Parametri di connessione
-OPC_SERVER_URL = "opc.tcp://192.168.0.1:4840"  # Modifica con l'IP del tuo PLC
+OPC_SERVER_URL = "opc.tcp://192.168.63.27:4840"  # Modifica con l'IP del tuo PLC
 NODI_DA_LEGGERE = {
-    "Temperatura": "ns=2;s=Sensor.Temperature",
-    "Pressione": "ns=2;s=Sensor.Pressure",
-    "Stato_Motore": "ns=2;s=Motor.Status"
+    "Pressione": "ns=3;s='Festo'.'IOLink_SFAM'[0].'Sts'.'Pressure'",
 }
 CSV_FILE = "dati_plc.csv"
 
@@ -42,12 +40,12 @@ def main():
         # Lettura valori
         valori = leggi_valori_da_plc(client, NODI_DA_LEGGERE)
         valori["Timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+        print(valori)
         # Scrittura su CSV
-        intestazioni = list(valori.keys())
-        scrivi_csv(intestazioni, valori, CSV_FILE)
+        #intestazioni = list(valori.keys())
+        #scrivi_csv(intestazioni, valori, CSV_FILE)
 
-        print("Dati salvati su CSV.")
+        #print("Dati salvati su CSV.")
     except Exception as e:
         print("Errore:", e)
     finally:
