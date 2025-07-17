@@ -1,5 +1,0 @@
-opcua
-requests
-python-dotenv
-pytz
-cryptography
